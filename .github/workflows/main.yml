@@ -1,0 +1,76 @@
+name: Model Training and Evaluation Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      learningRate:
+        description: 'Learning Rate'
+        required: true
+        default: '0.001'
+      epochs:
+        description: 'Number of epochs'
+        required: true
+        default: '10'
+
+jobs:
+  data_processing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Download Data Files
+        run: |
+          wget https://path-to-your-data-files/btc_train.csv -P data/
+          wget https://path-to-your-data-files/btc_dev.csv -P data/
+          wget https://path-to-your-data-files/btc_test.csv -P data/
+
+  model_training:
+    needs: data_processing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install torch pandas scikit-learn
+
+      - name: Train Model
+        run: |
+          python3 train_model.py --learning_rate ${{ github.event.inputs.learningRate }} --epochs ${{ github.event.inputs.epochs }}
+
+      - name: Upload Model Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: model
+          path: model
+
+  model_evaluation:
+    needs: model_training
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install pandas torch scikit-learn
+
+      - name: Download Model Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: model
+          path: model
+
+      - name: Evaluate Model
+        run: |
+          python3 evaluate_model.py
+
+      - name: Upload Evaluation Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: evaluation
+          path: evaluation_results
