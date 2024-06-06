@@ -37,6 +37,7 @@ jobs:
       - name: Upload Model Artifact
         uses: actions/upload-artifact@v2
         with:
+          path: ./
           name: model.pth
 
   model_evaluation:
@@ -54,6 +55,7 @@ jobs:
       - name: Download Model Artifact
         uses: actions/download-artifact@v2
         with:
+          path: ./
           name: model.pth
 
       - name: Evaluate Model
