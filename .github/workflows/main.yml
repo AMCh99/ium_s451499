@@ -18,6 +18,7 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+
   model_training:
     needs: data_processing
     runs-on: ubuntu-latest
@@ -29,7 +30,7 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
           pip install torch pandas scikit-learn
-
+          
       - name: Train Model
         run: |
           python3 train_model.py --learning_rate ${{ github.event.inputs.learningRate }} --epochs ${{ github.event.inputs.epochs }}
