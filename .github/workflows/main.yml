@@ -52,12 +52,6 @@ jobs:
           python3 -m pip install --upgrade pip
           pip install pandas torch scikit-learn
 
-      - name: Download Model Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: model
-          path: model
-
       - name: Evaluate Model
         run: |
           python3 evaluate_model.py
