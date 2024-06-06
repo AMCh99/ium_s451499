@@ -16,7 +16,7 @@ learning_rate = args.learning_rate
 epochs = args.epochs
 
 # Load data
-data = pd.read_csv('data/btc_train.csv')
+data = pd.read_csv('btc_train.csv')
 data = pd.DataFrame(data)
 
 # Data preprocessing

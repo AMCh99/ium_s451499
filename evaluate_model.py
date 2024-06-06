@@ -4,7 +4,7 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 
 # Load data
-data = pd.read_csv('data/btc_dev.csv')
+data = pd.read_csv('btc_dev.csv')
 data = pd.DataFrame(data)
 
 # Data preprocessing
