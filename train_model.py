@@ -64,5 +64,5 @@ for epoch in range(epochs):
 print("Model has been trained.")
 
 # Save model
-torch.save(model.state_dict(), "model/model.pth")
-print("Model saved to 'model/model.pth'.")
+torch.save(model.state_dict(), "model.pth")
+print("Model saved to 'model.pth'.")

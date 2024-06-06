@@ -30,7 +30,7 @@ model = nn.Sequential(
     nn.ReLU(),
     nn.Linear(64, 1),
 )
-model.load_state_dict(torch.load("model/model.pth"))
+model.load_state_dict(torch.load("model.pth"))
 model.eval()
 
 # Evaluate model
@@ -44,5 +44,5 @@ evaluation_results = pd.DataFrame({
     'Actual': targets.view(-1).numpy(),
     'Predicted': predictions.view(-1).detach().numpy()
 })
-evaluation_results.to_csv('evaluation_results/predictions.csv', index=False)
-print("Evaluation results saved to 'evaluation_results/predictions.csv'.")
+evaluation_results.to_csv('predictions.csv', index=False)
+print("Evaluation results saved to 'predictions.csv'.")
